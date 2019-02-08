@@ -1,0 +1,7 @@
+.rpt2_cache
+.cache
+.mocha-puppeteer
+.nyc_output
+
+node_modules
+dist

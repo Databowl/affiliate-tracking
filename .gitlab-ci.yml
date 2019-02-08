@@ -1,0 +1,36 @@
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - "node_modules"
+
+stages:
+  - deps
+  - test
+  - build
+  - publish
+
+deps:
+  type: deps
+  script:
+    - npm install
+
+test:
+  type: test
+  image: alekzonder/puppeteer
+  script:
+    - npm run test:e2e
+
+build:
+  type: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - ./dist/index.js
+
+publish:
+  type: publish
+  only:
+    - master
+  script:
+    - AWS_ACCESS_KEY_ID=$AWS_KEY AWS_SECRET_ACCESS_KEY=$AWS_SECRET BUCKET_NAME=$BUCKET_NAME DEPLOY_PATH=$DEPLOY_PATH ./bin/deploy.sh
