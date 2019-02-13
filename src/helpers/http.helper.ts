@@ -19,4 +19,12 @@ export class HttpHelper {
         const response = await transport()(req);
         return await response.body.json();
     }
+
+    public async submitHttpOptionsRequest(url: string): Promise<any> {
+        const req = request(this.options.baseUrl + url, {
+            method: 'options',
+        });
+
+        return await transport()(req);
+    }
 }

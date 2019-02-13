@@ -41,6 +41,7 @@
     "typescript": "^3.3.1"
   },
   "dependencies": {
+    "browser-interaction-time": "^1.2.15",
     "fs": "0.0.1-security",
     "popsicle": "^11.0.4",
     "recaptcha-v3": "^1.2.2",
