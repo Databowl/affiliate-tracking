@@ -6,6 +6,9 @@ import {OptionsObject} from "./options.object";
 import {EventService} from "./services/event.service";
 import {UidService} from "./services/uid.service";
 import {AffiliateEventTypeIdEnum} from "./enums/affiliate-event-type-id.enum";
+import {RecaptchaService} from "./services/recaptcha.service";
+
+import environment from '../environments/environment';
 
 export class TrackingClient {
     protected eventParams: {[key: string]: string};
@@ -17,6 +20,7 @@ export class TrackingClient {
         protected urlHelper: UrlHelper = null,
         protected eventService: EventService = null,
         protected uidService: UidService = null,
+        protected recaptchaService: RecaptchaService = null,
     ) {
         if (!cookieHelper) {
             this.cookieHelper = new CookieHelper(options);
@@ -32,6 +36,10 @@ export class TrackingClient {
 
         if (!eventService) {
             this.eventService = new EventService(this.httpHelper);
+        }
+
+        if (!recaptchaService) {
+            this.recaptchaService = new RecaptchaService(options);
         }
 
         if (!uidService) {
@@ -52,6 +60,10 @@ export class TrackingClient {
                 ...this.eventParams,
                 ...userDefinedParams
             };
+
+            if (environment.recaptchaSiteKey) {
+                requestParams[AffiliateParameterEnum.RecaptchaToken] = await this.recaptchaService.getToken("affiliate_event_type_" + eventTypeId);
+            }
 
             const uid = await this.getUid();
 

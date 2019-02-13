@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2'
+import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 import globals from 'rollup-plugin-node-globals';
 import commonJS from 'rollup-plugin-commonjs';
@@ -17,6 +18,10 @@ export default {
         },
     ],
     plugins: [
+        replace({
+            ENVIRONMENT: process.env.ENVIRONMENT || 'dev',
+            'process.env.RECAPTCHA_SITE_KEY': "'" + process.env.RECAPTCHA_SITE_KEY + "'"
+        }),
         resolve({
             browser: true,
             preferBuiltins: true

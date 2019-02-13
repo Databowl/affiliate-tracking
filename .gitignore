@@ -6,3 +6,4 @@
 examples/example.html
 node_modules
 dist
+environments/environment.dev.ts

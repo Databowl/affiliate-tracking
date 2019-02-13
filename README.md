@@ -2,6 +2,10 @@
 
 This is the affiliate tracking library that clients can include on their sites.
 
+## Config
+
+Copy `environments/environment.example.ts` to `environments/environment.dev.ts` and add values to the keys.
+
 ## Example
 
 ```
@@ -42,4 +46,15 @@ To run tests:
 
 ```
 npm run test:e2e
+```
+
+## Production Build Environment Variables
+
+```
+AWS_KEY:            The AWS key used for delpoying the umd bundle
+AWS_SECRET:         The AWS secret used for delpoying the umd bundle
+BUCKET_NAME:        The bucket that the umd bundle will be deployed to
+DEPLOY_PATH:        The path that the umd bundle will be deployed to
+ENVIRONMENT:        The environment to use when building library (defaults to dev)
+RECAPTCHA_SITE_KEY: The site key for the recaptcha account
 ```
