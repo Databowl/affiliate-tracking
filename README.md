@@ -62,3 +62,14 @@ DEPLOY_PATH:        The path that the umd bundle will be deployed to
 ENVIRONMENT:        The environment to use when building library (defaults to dev)
 RECAPTCHA_SITE_KEY: The site key for the recaptcha account
 ```
+
+## Production Build Environment Variables
+
+```
+AWS_KEY:            The AWS key used for delpoying the umd bundle
+AWS_SECRET:         The AWS secret used for delpoying the umd bundle
+BUCKET_NAME:        The bucket that the umd bundle will be deployed to
+DEPLOY_PATH:        The path that the umd bundle will be deployed to
+ENVIRONMENT:        The environment to use when building library (defaults to dev)
+RECAPTCHA_SITE_KEY: The site key for the recaptcha account
+```
