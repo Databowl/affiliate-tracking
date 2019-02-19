@@ -1,0 +1,49 @@
+{
+  "name": "affiliate-tracking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test:e2e": "SHOW_MODULE_COMPLAINS=1 npm run build && npx mocha --require mocha-puppeteer-launcher/register \"tests/e2e/**/*.spec.js\" --enable-features=NetworkService",
+    "clean": "shx rm -rf dist",
+    "build": "npm run clean && rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.databowl.com:shared/affiliate-tracking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/request": "^2.48.1",
+    "@types/request-promise-native": "^1.0.15",
+    "assert": "^1.4.1",
+    "lodash": "^4.17.11",
+    "mocha": "^5.2.0",
+    "mocha-puppeteer-launcher": "^1.0.1",
+    "puppeteer": "^1.12.2-next.1549688623724",
+    "rollup": "^1.1.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.19.2",
+    "shx": "^0.3.2",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.1"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "popsicle": "^11.0.4",
+    "rxjs": "^6.4.0",
+    "url-search-params": "^1.1.0",
+    "util": "^0.11.1"
+  }
+}
