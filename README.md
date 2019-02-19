@@ -20,6 +20,12 @@ trackingClient.createRedirectClickEvent();
 
 ## Development
 
+Install dependencies with:
+
+```
+npm install
+```
+
 To build the library locally run:
 
 ```

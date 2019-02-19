@@ -3,5 +3,6 @@
 .mocha-puppeteer
 .nyc_output
 
+examples/example.html
 node_modules
 dist
