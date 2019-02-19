@@ -48,6 +48,10 @@ To run tests:
 npm run test:e2e
 ```
 
+## Testing locally in your browser
+
+The easiest way to test your local code in your browser is to right-click your html file in PhpStorm and choose "Open in Browser".
+
 ## Production Build Environment Variables
 
 ```
