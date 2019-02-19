@@ -34,6 +34,7 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-replace": "^2.1.0",
     "rollup-plugin-typescript2": "^0.19.2",
     "shx": "^0.3.2",
     "ts-loader": "^5.3.3",
@@ -42,6 +43,7 @@
   "dependencies": {
     "fs": "0.0.1-security",
     "popsicle": "^11.0.4",
+    "recaptcha-v3": "^1.2.2",
     "rxjs": "^6.4.0",
     "url-search-params": "^1.1.0",
     "util": "^0.11.1"

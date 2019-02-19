@@ -1,6 +1,7 @@
 export enum AffiliateParameterEnum {
     AffiliateId = 'affId',
     Keyword = 'keyword',
+    RecaptchaToken = 'db_recaptcha',
     RefererOverride = 'db_referrer_override',
     Revenue = 'db_revenue',
     SaleAmount = 'db_sale_amount',
