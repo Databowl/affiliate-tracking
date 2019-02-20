@@ -1,6 +1,12 @@
 .*
+**/gitlab-ci.yml
 **/tsconfig.json
 **/webpack.config.js
-
+databowl-affiliate-tracking-*.tgz
+DEVELOPMENT.md
+.cache
+.mocha-puppeteer
+.nyc_output
+.rpt2_cache
+bin
 node_modules
-src
