@@ -1,6 +1,7 @@
 import { transport, request } from 'popsicle/dist/universal';
 
 import {OptionsObject} from "../options.object";
+import environment from "../../environments/environment";
 
 export class HttpHelper {
     constructor(
@@ -8,7 +9,7 @@ export class HttpHelper {
     ) {}
 
     public async submitHttpPostRequest(url: string, bodyParams: object): Promise<any> {
-        const req = request(this.options.baseUrl + url, {
+        const req = request(environment.affiliatesBaseUrl + url, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -21,7 +22,7 @@ export class HttpHelper {
     }
 
     public async submitHttpOptionsRequest(url: string): Promise<any> {
-        const req = request(this.options.baseUrl + url, {
+        const req = request(environment.affiliatesBaseUrl + url, {
             method: 'options',
         });
 

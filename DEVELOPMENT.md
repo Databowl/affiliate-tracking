@@ -2,7 +2,8 @@
 
 ## Config
 
-Copy `environments/environment.example.ts` to `environments/environment.dev.ts` and add values to the keys.
+Copy `environments/environment.example.ts` to `environments/environment.dev.ts` and add values to the keys appropriate 
+for your local environment.
 
 ## Setup
 
@@ -56,11 +57,12 @@ When a new version of this package is ready to be deployed to NPM create a new t
 Run the following command to create a tarball of this package:
 
 ```
+npm run build
 npm pack
 ```
 
 You should see a generated file with the name `databowl-affiliate-tracking-0.0.0.tgz`. To use this test package in your
-project you can run the following command:
+project you can run the following command from your project's directory:
 
 ```
 npm install @databowl/affiliate-tracking@../affiliate-tracking/databowl-affiliate-tracking-0.0.0.tgz
