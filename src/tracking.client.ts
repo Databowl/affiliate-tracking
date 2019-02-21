@@ -82,9 +82,9 @@ export class TrackingClient {
     }
 
     public async createRedirectClickEvent(userDefinedParams: object = {}) {
-        const uid = this.getEventParam(AffiliateParameterEnum.Uid);
+        const affiliateId = this.getEventParam(AffiliateParameterEnum.AffiliateId);
 
-        if (!uid) {
+        if (!affiliateId) {
             return;
         }
 
