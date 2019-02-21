@@ -9,6 +9,7 @@ import {AffiliateEventTypeIdEnum} from "./enums/affiliate-event-type-id.enum";
 import {RecaptchaService} from "./services/recaptcha.service";
 
 import environment from '../environments/environment';
+import {InteractionService} from "./services/interaction.service";
 
 export class TrackingClient {
     protected eventParams: {[key: string]: string};
@@ -21,6 +22,7 @@ export class TrackingClient {
         protected eventService: EventService = null,
         protected uidService: UidService = null,
         protected recaptchaService: RecaptchaService = null,
+        protected interactionService: InteractionService = null,
     ) {
         if (!cookieHelper) {
             this.cookieHelper = new CookieHelper(options);
@@ -51,6 +53,11 @@ export class TrackingClient {
             );
         }
 
+        if (!interactionService) {
+            this.interactionService = new InteractionService();
+        }
+
+        this.setupUnloadCallback();
         this.initialiseEventParams();
     }
 
@@ -75,9 +82,9 @@ export class TrackingClient {
     }
 
     public async createRedirectClickEvent(userDefinedParams: object = {}) {
-        const uid = this.getEventParam(AffiliateParameterEnum.Uid);
+        const affiliateId = this.getEventParam(AffiliateParameterEnum.AffiliateId);
 
-        if (!uid) {
+        if (!affiliateId) {
             return;
         }
 
@@ -124,5 +131,23 @@ export class TrackingClient {
         if (document.referrer) {
             this.eventParams[AffiliateParameterEnum.RefererOverride] = document.referrer;
         }
+    }
+
+    setupUnloadCallback() {
+        const unloadEventName = this.interactionService.getUnloadEventName();
+
+        window.addEventListener(unloadEventName, async () => {
+            const timeInMilliseconds = this.interactionService.getInteractionTime();
+            const uid = await this.getUid();
+
+            if (!uid) {
+                return;
+            }
+
+            // in my tests submitting as a post request was too slow (as because of cors, two requests are made)
+            return await this.httpHelper.submitHttpOptionsRequest(
+                'consumer-session/increment-time/' + uid + '?duration_on_page=' + timeInMilliseconds,
+            );
+        });
     }
 }

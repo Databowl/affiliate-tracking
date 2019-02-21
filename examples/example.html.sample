@@ -43,6 +43,10 @@
         // Trigger the redirect click event (only fires if there's a uid in the url)
         trackingClient.createRedirectClickEvent();
     </script>
+
+    <p>
+        <a href="https://www.google.com">Go to google.com</a>
+    </p>
 </head>
 <body>
 </body>
