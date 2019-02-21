@@ -6,6 +6,7 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 import commonJS from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import builtins from 'rollup-plugin-node-builtins';
+import uglify from 'rollup-plugin-uglify-es';
 
 import pkg from './package.json'
 
@@ -42,5 +43,6 @@ export default {
             useTsconfigDeclarationDir: true
         }),
         sourcemaps(),
+        uglify(),
     ],
 }
