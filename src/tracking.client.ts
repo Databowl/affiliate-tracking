@@ -114,6 +114,14 @@ export class TrackingClient {
         return defaultValue;
     }
 
+    public setEventParam(key: string, value: string) {
+        this.eventParams[key] = value;
+    }
+
+    public addEventParams(params: {[key: string]: string}) {
+        this.eventParams = {...this.eventParams, ...params};
+    }
+
     public getOptions(): OptionsObject {
         return this.options;
     }
