@@ -1,9 +1,9 @@
 {
-  "name": "affiliate-tracking",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "name": "@databowl/affiliate-tracking",
+  "version": "0.0.0",
+  "description": "An affiliate tracking client library for Databowl's affiliate service",
+  "main": "dist/bundles/affiliate-tracking.umd.js",
+  "module": "dist/bundles/affiliate-tracking.es.js",
   "files": [
     "dist"
   ],
@@ -15,11 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.databowl.com:shared/affiliate-tracking.git"
+    "url": "git@github.com:Databowl/affiliate-tracking.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Databowl",
+  "license": "MIT",
   "devDependencies": {
     "@types/request": "^2.48.1",
     "@types/request-promise-native": "^1.0.15",
@@ -35,7 +35,9 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.19.2",
+    "rollup-plugin-uglify-es": "0.0.1",
     "shx": "^0.3.2",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.1"

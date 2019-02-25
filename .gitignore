@@ -2,7 +2,7 @@
 .cache
 .mocha-puppeteer
 .nyc_output
-
+databowl-affiliate-tracking-*.tgz
 examples/example.html
 node_modules
 dist

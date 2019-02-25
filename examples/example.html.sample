@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <script src="../dist/index.js"></script>
+    <script src="../dist/bundles/affiliate-tracking.umd.js"></script>
     <script>
         // Your databowl affiliate url ID
         var urlId = '10512f4d-87a4-4d8f-810d-f86546bcbec6';
@@ -13,7 +13,6 @@
         var trackingOptions = new DbEvtTracking.OptionsObject(
             urlId,
             defaultAffiliateId,
-            'http://localhost:8082/'
             // cookieExpiryInDays,
             // cookiePrefix,
             // cookiePath,

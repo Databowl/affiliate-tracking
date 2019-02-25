@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require("path");
 
-const libraryFilePath = path.resolve(__dirname, '../../dist/index.js');
+const libraryFilePath = path.resolve(__dirname, '../../dist/bundles/affiliate-tracking.umd.js');
 const librarySource = fs.readFileSync(libraryFilePath, 'utf8');
 
 exports.createNewPage = async (options) => {
