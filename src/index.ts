@@ -1,4 +1,4 @@
-import {AffiliateParameterEnum} from "./enums/affiliate-parameter.enum";
+import 'url-search-params-polyfill';
 
 export {TrackingClient} from "./tracking.client";
 export {OptionsObject} from "./options.object";
