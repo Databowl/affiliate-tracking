@@ -45,10 +45,8 @@
   "dependencies": {
     "browser-interaction-time": "^1.2.15",
     "fs": "0.0.1-security",
-    "popsicle": "^11.0.4",
     "recaptcha-v3": "^1.2.2",
     "rxjs": "^6.4.0",
-    "url-search-params-polyfill": "^5.0.0",
     "util": "^0.11.1"
   }
 }

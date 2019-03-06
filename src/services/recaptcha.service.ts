@@ -1,4 +1,4 @@
-import { load } from 'recaptcha-v3'
+import { load } from 'recaptcha-v3';
 import {OptionsObject} from "../options.object";
 
 import environment from "../../environments/environment";
