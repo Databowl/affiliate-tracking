@@ -45,8 +45,10 @@
   "dependencies": {
     "browser-interaction-time": "^1.2.15",
     "fs": "0.0.1-security",
+    "promise-polyfill": "^8.1.0",
     "recaptcha-v3": "^1.2.2",
     "rxjs": "^6.4.0",
+    "url-polyfill": "^1.1.5",
     "util": "^0.11.1"
   }
 }
