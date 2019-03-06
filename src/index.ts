@@ -1,4 +1,5 @@
-import 'url-search-params-polyfill';
+import 'url-polyfill';
+import 'promise-polyfill/src/polyfill';
 
 export {TrackingClient} from "./tracking.client";
 export {OptionsObject} from "./options.object";
