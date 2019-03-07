@@ -5,6 +5,8 @@ import {CookieHelper} from "../helpers/cookie.helper";
 import {UrlHelper} from "../helpers/url.helper";
 
 export class UidService {
+    protected affiliateIdUidPromiseMap: {[affiliateId: string]: Promise<string>} = {};
+
     constructor(
         protected options: OptionsObject,
         protected cookieHelper: CookieHelper,
@@ -24,7 +26,11 @@ export class UidService {
             return paramsUid;
         }
 
-        const newUid = await this.requestNewUid(affiliateId);
+        if (!this.affiliateIdUidPromiseMap.hasOwnProperty(affiliateId)) {
+            this.affiliateIdUidPromiseMap[affiliateId] = this.requestNewUid(affiliateId);
+        }
+
+        const newUid = await this.affiliateIdUidPromiseMap[affiliateId];
         this.cookieHelper.setCookie('uid', newUid);
 
         return newUid;
