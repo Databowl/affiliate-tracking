@@ -1,5 +1,4 @@
 import {OptionsObject} from "../options.object";
-import environment from "../../environments/environment";
 
 export class HttpHelper {
     constructor(
@@ -8,7 +7,7 @@ export class HttpHelper {
     }
 
     public async submitHttpPostRequest(url: string, bodyParams: object): Promise<any> {
-        const response = await this.request('POST', environment.affiliatesBaseUrl + url, bodyParams, {
+        const response = await this.request('POST', this.options.baseUrl + url, bodyParams, {
             'Content-Type': 'application/json'
         });
 
@@ -16,7 +15,7 @@ export class HttpHelper {
     }
 
     public async submitHttpOptionsRequest(url: string): Promise<any> {
-        return await this.request('OPTIONS', environment.affiliatesBaseUrl + url);
+        return await this.request('OPTIONS', this.options.baseUrl + url);
     }
 
     public async request(method: string, url: string, params = {}, headers = {}): Promise<any> {
