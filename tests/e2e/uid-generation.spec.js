@@ -52,7 +52,7 @@ it ('should use stored uid when found in cookie', async function() {
 
     const cookies = [
         {
-            name: 'uid',
+            name: 'urlId-uid',
             domain: location.hostname,
             value: mockUid,
             path: '/',
@@ -83,7 +83,7 @@ it ('should use stored uid when found in query params', async function() {
 
     const cookies = [
         {
-            name: 'uid',
+            name: 'urlId-uid',
             domain: location.hostname,
             value: mockUid,
             path: '/',
