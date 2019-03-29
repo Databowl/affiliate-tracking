@@ -5,7 +5,7 @@ import {CookieHelper} from "../helpers/cookie.helper";
 import {UrlHelper} from "../helpers/url.helper";
 
 export class UidService {
-    protected affiliateIdUidPromiseMap: {[affiliateId: string]: Promise<string>} = {};
+    protected uidPromiseMap: {[key: string]: Promise<string>} = {};
 
     constructor(
         protected options: OptionsObject,
@@ -15,23 +15,25 @@ export class UidService {
     ) {}
 
     public async getUid(affiliateId: string) {
+        const paramsUid = this.getUidFromEventParams();
+        if (paramsUid) {
+            this.cookieHelper.setCookie(this.getCookieName(), paramsUid);
+            return paramsUid;
+        }
+
         const cookieUid = this.getUidFromCookie();
         if (cookieUid) {
             return cookieUid;
         }
 
-        const paramsUid = this.getUidFromEventParams();
-        if (paramsUid) {
-            this.cookieHelper.setCookie('uid', paramsUid);
-            return paramsUid;
+        const uidMapKey = this.options.urlId + '|' + affiliateId;
+
+        if (!this.uidPromiseMap.hasOwnProperty(uidMapKey)) {
+            this.uidPromiseMap[uidMapKey] = this.requestNewUid(affiliateId);
         }
 
-        if (!this.affiliateIdUidPromiseMap.hasOwnProperty(affiliateId)) {
-            this.affiliateIdUidPromiseMap[affiliateId] = this.requestNewUid(affiliateId);
-        }
-
-        const newUid = await this.affiliateIdUidPromiseMap[affiliateId];
-        this.cookieHelper.setCookie('uid', newUid);
+        const newUid = await this.uidPromiseMap[uidMapKey];
+        this.cookieHelper.setCookie(this.getCookieName(), newUid);
 
         return newUid;
     }
@@ -51,11 +53,15 @@ export class UidService {
     }
 
     getUidFromCookie(): string {
-        return this.cookieHelper.getCookie('uid');
+        return this.cookieHelper.getCookie(this.getCookieName());
     }
 
     getUidFromEventParams(): string {
         const pageParams = this.urlHelper.getQueryParameters(document.location.href);
         return pageParams[AffiliateParameterEnum.Uid];
+    }
+
+    getCookieName(): string {
+        return this.options.urlId + '-uid';
     }
 }
