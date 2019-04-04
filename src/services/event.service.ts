@@ -13,7 +13,14 @@ export class EventService {
             requestParams,
         );
 
-        this.httpHelper.request('OPTIONS', this.options.ipv4BaseUrl + 'event/capture-ip4/' + eventResponse.data.event);
+        const userIpv = this.httpHelper.getUserIpv();
+
+        if (userIpv === 6) {
+            try {
+                this.httpHelper.request('OPTIONS', this.options.ipv4BaseUrl + 'event/capture-ip4/' + eventResponse.data.event);
+            } catch (err) {
+            }
+        }
 
         return eventResponse;
     }

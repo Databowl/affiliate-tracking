@@ -1,6 +1,8 @@
 import {OptionsObject} from "../options.object";
 
 export class HttpHelper {
+    protected userIpv: number;
+
     constructor(
         protected options: OptionsObject,
     ) {
@@ -19,20 +21,23 @@ export class HttpHelper {
     }
 
     public async request(method: string, url: string, params = {}, headers = {}): Promise<any> {
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             let xhr = new XMLHttpRequest();
             xhr.open(method, url, true);
             xhr.withCredentials = true;
-            xhr.onload = function () {
-                if (this.status >= 200 && this.status < 300) {
+
+            xhr.onload = () => {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    this.userIpv = parseInt(xhr.getResponseHeader('IPV'), 10);
                     resolve(xhr.response);
                 } else {
                     reject({
-                        status: this.status,
-                        statusText: this.statusText
+                        status: xhr.status,
+                        statusText: xhr.statusText
                     });
                 }
             };
+
             xhr.onerror = function () {
                 reject({
                     status: this.status,
@@ -49,4 +54,9 @@ export class HttpHelper {
             xhr.send(JSON.stringify(params));
         });
     }
+
+    public getUserIpv(): number {
+        return this.userIpv;
+    }
+
 }
