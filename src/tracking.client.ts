@@ -37,7 +37,7 @@ export class TrackingClient {
         }
 
         if (!eventService) {
-            this.eventService = new EventService(this.httpHelper);
+            this.eventService = new EventService(this.httpHelper, options);
         }
 
         if (!recaptchaService) {
