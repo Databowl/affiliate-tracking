@@ -27,6 +27,9 @@
     <script>
         // Manually trigger a click event
         trackingClient.createEvent(DbEvtTracking.AffiliateEventTypeHandleEnum.Click);
+
+        // get the current recaptcha score
+        trackingClient.getRecaptchaScore().then(console.log);
     </script>
 
     <script>

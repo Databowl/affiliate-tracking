@@ -41,7 +41,7 @@ export class TrackingClient {
         }
 
         if (!recaptchaService) {
-            this.recaptchaService = new RecaptchaService(options);
+            this.recaptchaService = new RecaptchaService(options, this.httpHelper);
         }
 
         if (!uidService) {
@@ -82,6 +82,19 @@ export class TrackingClient {
             console.error(err);
             return null;
         }
+    }
+
+    public async getRecaptchaScore() {
+        let score = 0.0;
+
+        try {
+            const token = await this.recaptchaService.getToken('homepage');
+            score = await this.recaptchaService.getScore(token);
+        } catch (e) {
+            console.error(e);
+        }
+
+        return score;
     }
 
     /**
