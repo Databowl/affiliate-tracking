@@ -3,6 +3,8 @@ import {defaultCookieExpiryInDays} from "./helpers/cookie.helper";
 import environment from "../environments/environment";
 
 export class OptionsObject {
+    public readonly version = '@version@';
+
     constructor(
         public urlId: string,
         public defaultAffiliateId: string,
