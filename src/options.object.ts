@@ -11,5 +11,6 @@ export class OptionsObject {
         public cookiePrefix: string = '',
         public cookiePath: string = '/',
         public documentReferrer: string = document.referrer,
+        public ipv4BaseUrl: string = environment.affiliatesIpv4BaseUrl,
     ) {}
 }
