@@ -23,7 +23,7 @@ test:
 build:
   type: build
   script:
-    - sed -i -e "s/@version@/$CI_COMMIT_TAG/g" src/options.object.js
+    - sed -i -e "s/@version@/$CI_COMMIT_TAG/g" ./src/options.object.js
     - npm run build
   artifacts:
     paths:
