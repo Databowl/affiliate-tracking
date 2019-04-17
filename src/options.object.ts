@@ -8,6 +8,7 @@ export class OptionsObject {
     constructor(
         public urlId: string,
         public defaultAffiliateId: string,
+        public recaptchaSiteKey: string = environment.recaptchaSiteKey,
         public baseUrl: string = environment.affiliatesBaseUrl,
         public cookieExpiryInDays: number = defaultCookieExpiryInDays,
         public cookiePrefix: string = '',

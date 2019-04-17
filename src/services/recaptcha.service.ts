@@ -14,21 +14,22 @@ export class RecaptchaService {
         try {
             action = action.replace('-', '');
 
-            const recaptcha = await load(environment.recaptchaSiteKey);
+            const recaptcha = await load(this.options.recaptchaSiteKey);
             return await recaptcha.execute(action);
         } catch (err) {
+            console.error(err);
             return null;
         }
     }
 
     public async getScore(token: string) {
         const result =  await this.httpHelper.submitHttpPostRequest(
-            'rcptch/score',
+            'rcptch/v3/check',
             {
                 token
             },
         );
 
-        return parseFloat(result['score']);
+        return parseFloat(result['result']);
     }
 }

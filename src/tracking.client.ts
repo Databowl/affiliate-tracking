@@ -84,17 +84,21 @@ export class TrackingClient {
         }
     }
 
-    public async getRecaptchaScore() {
+    public async getRecaptchaV3TokenAndScore(action = 'getScore') {
         let score = 0.0;
+        let token = null;
 
         try {
-            const token = await this.recaptchaService.getToken('homepage');
+            token = await this.recaptchaService.getToken(action);
             score = await this.recaptchaService.getScore(token);
         } catch (e) {
             console.error(e);
         }
 
-        return score;
+        return {
+            token,
+            score,
+        };
     }
 
     /**

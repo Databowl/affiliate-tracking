@@ -11,7 +11,8 @@
   "scripts": {
     "test:e2e": "SHOW_MODULE_COMPLAINS=1 npm run build && npx mocha --require mocha-puppeteer-launcher/register \"tests/e2e/**/*.spec.js\" --enable-features=NetworkService",
     "clean": "shx rm -rf dist",
-    "build": "npm run clean && rollup -c"
+    "build": "npm run clean && rollup -c",
+    "buildpack": "npm run build && npm pack"
   },
   "repository": {
     "type": "git",
