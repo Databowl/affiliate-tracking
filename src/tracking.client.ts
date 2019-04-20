@@ -82,9 +82,9 @@ export class TrackingClient {
     }
 
     public async createRedirectClickEvent(userDefinedParams: object = {}) {
-        const affiliateId = this.getEventParam(AffiliateParameterEnum.AffiliateId);
+        const referrerIsSelf = document.referrer.indexOf(location.protocol + "//" + location.host) === 0;
 
-        if (!affiliateId) {
+        if (referrerIsSelf) {
             return;
         }
 
