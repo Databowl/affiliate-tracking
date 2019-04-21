@@ -21,6 +21,8 @@ export class HttpHelper {
     }
 
     public async request(method: string, url: string, params = {}, headers = {}): Promise<any> {
+        headers['Affiliate-Tracking-Version'] = this.options.version;
+
         return new Promise((resolve, reject) => {
             let xhr = new XMLHttpRequest();
             xhr.open(method, url, true);
