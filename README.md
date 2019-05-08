@@ -1,6 +1,6 @@
 # Affiliate Tracking
 
-This is the affiliate tracking library that clients can include on their sites.
+This is the affiliate tracking library that you can include on your sites to track affiliate traffic with Databowl.
 
 ## Basic Example
 
@@ -66,6 +66,7 @@ await this.trackingClient.createRedirectClickEvent();
 |cookieExpiryInDays|No|The number of days before stored cookies will expire|7
 |cookiePrefix|No|Assign a prefix to your cookies, useful if you are using this library more than once on the same domain|*empty*
 |documentReferrer|No|Set to send Databowl the URI of the page that linked to your page|`document.referrer`
+|ipv4BaseUrl|No|Set to override the IPv4 capture URL|https://ipv4.dbevt.com
 
 You can also set these options individually:
 
