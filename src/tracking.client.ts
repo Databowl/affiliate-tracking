@@ -84,7 +84,7 @@ export class TrackingClient {
         }
     }
 
-    public async getRecaptchaV3TokenAndScore(action = 'getScore') {
+    public async getRecaptchaV3Score(action = 'getScore') {
         let score = 0.0;
         let token = null;
 
@@ -95,10 +95,11 @@ export class TrackingClient {
             console.error(e);
         }
 
-        return {
-            token,
-            score,
-        };
+        return score;
+    }
+
+    public async getRecaptchaV2Result(token): Promise<boolean> {
+        return await this.recaptchaService.getV2Result(token, this.options.urlId);
     }
 
     /**
