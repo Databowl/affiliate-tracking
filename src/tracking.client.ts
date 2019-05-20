@@ -84,7 +84,7 @@ export class TrackingClient {
         }
     }
 
-    public async getRecaptchaV3Score(action = 'getScore') {
+    public async getRecaptchaV3Score(action = 'getScore'): Promise<number> {
         let score = 0.0;
         let token = null;
 
