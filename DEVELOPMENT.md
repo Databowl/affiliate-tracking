@@ -42,6 +42,7 @@ AWS_KEY:                The AWS key used for delpoying the umd bundle
 AWS_SECRET:             The AWS secret used for delpoying the umd bundle
 BUCKET_NAME:            The bucket that the umd bundle will be deployed to
 DEPLOY_PATH:            The path that the umd bundle will be deployed to
+DEPLOY_HOST:            The hostname the umd bundle will be deployed to (e.g. https://example.com)
 VERSION_FILE:           The path that to the file that stores the last deployed filename
 ENVIRONMENT:            The environment to use when building library (defaults to dev)
 NPM_PUBLISH_AUTH_TOKEN: The auth token required for publishing to npm
