@@ -1,5 +1,6 @@
 import {HttpHelper} from "../helpers/http.helper";
 import {OptionsObject} from "../options.object";
+import {AffiliateEventTypeHandleEnum} from '../enums/affiliate-event-type-handle.enum';
 
 export class EventService {
     constructor(
@@ -7,9 +8,9 @@ export class EventService {
         protected options: OptionsObject,
     ) {}
 
-    public async createEvent(eventTypeId: number, uid: string, requestParams: object = {}) {
+    public async createEvent(eventTypeHandle: AffiliateEventTypeHandleEnum, uid: string, requestParams: object = {}) {
         const eventResponse = await this.httpHelper.submitHttpPostRequest(
-            'event/' + uid + '/' + eventTypeId,
+            'event/' + uid + '/' + eventTypeHandle,
             requestParams,
         );
 
