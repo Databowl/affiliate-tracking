@@ -81,14 +81,24 @@ export class TrackingClient {
         }
     }
 
-    public async createRedirectClickEvent(userDefinedParams: object = {}) {
-        const referrerIsSelf = document.referrer.indexOf(location.protocol + "//" + location.host) === 0;
+    /**
+     * @deprecated renamed 'registerPageView' to better reflect its functionality
+     */
+    public async createRedirectClickEvent(userDefinedParams: object = {}): Promise<void> {
+        return this.registerPageView(userDefinedParams);
+    }
 
-        if (referrerIsSelf) {
-            return;
+    public async registerPageView(userDefinedParams: object = {}): Promise<void> {
+        const promises: Promise<any>[] = [];
+
+        const referrerIsSelf = document.referrer.indexOf(location.protocol + "//" + location.host) === 0;
+        if (!referrerIsSelf) {
+            promises.push(this.createEvent(AffiliateEventTypeHandleEnum.Click, userDefinedParams));
         }
 
-        return await this.createEvent(AffiliateEventTypeHandleEnum.Click, userDefinedParams);
+        promises.push(this.createEvent(AffiliateEventTypeHandleEnum.PageView, userDefinedParams));
+
+        await Promise.all(promises);
     }
 
     public async getUid(): Promise<string> {

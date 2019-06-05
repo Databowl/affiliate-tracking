@@ -39,8 +39,9 @@
     </script>
 
     <script>
-        // Trigger the redirect click event (only fires if there's a uid in the url)
-        trackingClient.createRedirectClickEvent();
+        // Fire a click event if appropriate (referrer shows the user didn't come from elsewhere on the same domain),
+        // and fires a page-view event.
+        trackingClient.registerPageView();
     </script>
 
     <p>
