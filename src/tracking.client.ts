@@ -116,8 +116,9 @@ export class TrackingClient {
             }
 
             const affiliateId = this.eventParams[AffiliateParameterEnum.AffiliateId] || this.options.defaultAffiliateId;
+            const subAffiliateId = this.eventParams[AffiliateParameterEnum.SubAffiliateId] || null;
 
-            const newUid = await this.uidService.getUid(affiliateId);
+            const newUid = await this.uidService.getUid(affiliateId, subAffiliateId);
 
             this.cookieHelper.setCookie(this.getUidCookieName(), newUid);
 

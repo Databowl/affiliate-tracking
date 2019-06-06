@@ -14,22 +14,25 @@ export class UidService {
         protected urlHelper: UrlHelper,
     ) {}
 
-    public async getUid(affiliateId: string) {
-        const uidMapKey = this.options.urlId + '|' + affiliateId;
+    public async getUid(affiliateId: string, subAffiliateId: string|null) {
+        const uidMapKey = this.options.urlId + '|' + affiliateId + '|' + subAffiliateId;
 
         if (!this.uidPromiseMap.hasOwnProperty(uidMapKey)) {
-            this.uidPromiseMap[uidMapKey] = this.requestNewUid(affiliateId);
+            this.uidPromiseMap[uidMapKey] = this.requestNewUid(affiliateId, subAffiliateId);
         }
 
         return await this.uidPromiseMap[uidMapKey];
     }
 
-    protected async requestNewUid(affiliateId: string) {
+    protected async requestNewUid(affiliateId: string, subAffiliateId: string|null) {
         const requestParams = {
             urlId: this.options.urlId,
         };
 
         requestParams[AffiliateParameterEnum.AffiliateId] = affiliateId;
+        if (subAffiliateId !== null) {
+            requestParams[AffiliateParameterEnum.SubAffiliateId] = subAffiliateId;
+        }
 
         const response = await this.httpHelper.submitHttpPostRequest(
             'api/consumer-session',
