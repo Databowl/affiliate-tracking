@@ -5,7 +5,7 @@ import {CookieHelper} from "./helpers/cookie.helper";
 import {OptionsObject} from "./options.object";
 import {EventService} from "./services/event.service";
 import {UidService} from "./services/uid.service";
-import {AffiliateEventTypeIdEnum} from "./enums/affiliate-event-type-id.enum";
+import {AffiliateEventTypeHandleEnum} from './enums/affiliate-event-type-handle.enum';
 import {RecaptchaService} from "./services/recaptcha.service";
 
 import environment from '../environments/environment';
@@ -61,7 +61,7 @@ export class TrackingClient {
         this.initialiseEventParams();
     }
 
-    public async createEvent(eventTypeId: number, userDefinedParams: object = {}) {
+    public async createEvent(eventTypeHandle: AffiliateEventTypeHandleEnum, userDefinedParams: object = {}) {
         try {
             const requestParams = {
                 ...this.eventParams,
@@ -69,26 +69,36 @@ export class TrackingClient {
             };
 
             if (environment.recaptchaSiteKey) {
-                requestParams[AffiliateParameterEnum.RecaptchaToken] = await this.recaptchaService.getToken("affiliate_event_type_" + eventTypeId);
+                requestParams[AffiliateParameterEnum.RecaptchaToken] = await this.recaptchaService.getToken("affiliate_event_type_" + eventTypeHandle);
             }
 
             const uid = await this.getUid();
 
-            return await this.eventService.createEvent(eventTypeId, uid, requestParams);
+            return await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
         } catch (err) {
             console.error(err);
             return null;
         }
     }
 
-    public async createRedirectClickEvent(userDefinedParams: object = {}) {
-        const referrerIsSelf = document.referrer.indexOf(location.protocol + "//" + location.host) === 0;
+    /**
+     * @deprecated renamed 'registerPageView' to better reflect its functionality
+     */
+    public async createRedirectClickEvent(userDefinedParams: object = {}): Promise<void> {
+        return this.registerPageView(userDefinedParams);
+    }
 
-        if (referrerIsSelf) {
-            return;
+    public async registerPageView(userDefinedParams: object = {}): Promise<void> {
+        const promises: Promise<any>[] = [];
+
+        const referrerIsSelf = document.referrer.indexOf(location.protocol + "//" + location.host) === 0;
+        if (!referrerIsSelf) {
+            promises.push(this.createEvent(AffiliateEventTypeHandleEnum.Click, userDefinedParams));
         }
 
-        return await this.createEvent(AffiliateEventTypeIdEnum.Click, userDefinedParams);
+        promises.push(this.createEvent(AffiliateEventTypeHandleEnum.PageView, userDefinedParams));
+
+        await Promise.all(promises);
     }
 
     public async getUid(): Promise<string> {

@@ -24,7 +24,7 @@
 
     <script>
         // Manually trigger a click event
-        trackingClient.createEvent(DbEvtTracking.AffiliateEventTypeIdEnum.Click);
+        trackingClient.createEvent(DbEvtTracking.AffiliateEventTypeHandleEnum.Click);
     </script>
 
     <script>
@@ -35,12 +35,13 @@
 
         additionalParams[DbEvtTracking.AffiliateParameterEnum.RefererOverride] = 'http://www.example.com';
 
-        trackingClient.createEvent(DbEvtTracking.AffiliateEventTypeIdEnum.Click, additionalParams);
+        trackingClient.createEvent(DbEvtTracking.AffiliateEventTypeHandleEnum.Click, additionalParams);
     </script>
 
     <script>
-        // Trigger the redirect click event (only fires if there's a uid in the url)
-        trackingClient.createRedirectClickEvent();
+        // Fire a click event if appropriate (referrer shows the user didn't come from elsewhere on the same domain),
+        // and fires a page-view event.
+        trackingClient.registerPageView();
     </script>
 
     <p>

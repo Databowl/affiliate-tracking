@@ -11,5 +11,5 @@ export {UrlHelper} from "./helpers/url.helper";
 export {EventService} from "./services/event.service";
 export {UidService} from "./services/uid.service";
 
-export {AffiliateEventTypeIdEnum} from "./enums/affiliate-event-type-id.enum";
+export {AffiliateEventTypeHandleEnum} from './enums/affiliate-event-type-handle.enum';
 export {AffiliateParameterEnum} from "./enums/affiliate-parameter.enum";

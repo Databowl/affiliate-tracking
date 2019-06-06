@@ -21,7 +21,7 @@ var trackingOptions = new DbEvtTracking.OptionsObject(
 
 var trackingClient = new DbEvtTracking.TrackingClient(trackingOptions);
 
-trackingClient.createRedirectClickEvent();
+trackingClient.registerPageView();
 ```
 
 ## Installing with NPM
@@ -53,7 +53,7 @@ const trackingOptions = new OptionsObject(
 
 const trackingClient = new TrackingClient(trackingOptions);
 
-await this.trackingClient.createRedirectClickEvent();
+trackingClient.registerPageView();
 ```
 
 ## Options
@@ -71,18 +71,19 @@ await this.trackingClient.createRedirectClickEvent();
 You can also set these options individually:
 
 ```
-trackingOptions.cookieExpiryInDays = 10; 
-``` 
+trackingOptions.cookieExpiryInDays = 10;
+```
 
 ## Methods
 
-### Create Redirect Click Event
+### Register Page View
 
-Fires a click event if the user has visited your page from a different domain.
+If the current referrer shows that this page was not reached from another page within the same domain, this will fire
+a click event. Either way, it will also fire a page-view event.
 
 ```
-trackingClient.createRedirectClickEvent(
-    userDefinedParams: object = {} // you can send custom parameters to be stored on the event
+trackingClient.registerPageView(
+    userDefinedParams: object = {} // you can send custom parameters to be stored on the events
 );
 ```
 
