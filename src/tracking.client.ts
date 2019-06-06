@@ -103,9 +103,25 @@ export class TrackingClient {
 
     public async getUid(): Promise<string> {
         try {
+            const paramsUid = this.getUidFromEventParams();
+            if (paramsUid) {
+                this.cookieHelper.setCookie(this.getUidCookieName(), paramsUid);
+
+                return paramsUid;
+            }
+
+            const cookieUid = this.getUidFromCookie();
+            if (cookieUid) {
+                return cookieUid;
+            }
+
             const affiliateId = this.eventParams[AffiliateParameterEnum.AffiliateId] || this.options.defaultAffiliateId;
 
-            return await this.uidService.getUid(affiliateId);
+            const newUid = await this.uidService.getUid(affiliateId);
+
+            this.cookieHelper.setCookie(this.getUidCookieName(), newUid);
+
+            return newUid;
         } catch (err) {
             console.error(err);
             return null;
@@ -167,5 +183,17 @@ export class TrackingClient {
                 'consumer-session/increment-time/' + uid + '?duration_on_page=' + timeInMilliseconds,
             );
         });
+    }
+
+    protected getUidFromEventParams(): string {
+        return this.eventParams[AffiliateParameterEnum.Uid];
+    }
+
+    protected getUidFromCookie(): string {
+        return this.cookieHelper.getCookie(this.getUidCookieName());
+    }
+
+    protected getUidCookieName(): string {
+        return this.options.urlId + '-uid';
     }
 }
