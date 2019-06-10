@@ -14,35 +14,25 @@ export class UidService {
         protected urlHelper: UrlHelper,
     ) {}
 
-    public async getUid(affiliateId: string) {
-        const paramsUid = this.getUidFromEventParams();
-        if (paramsUid) {
-            this.cookieHelper.setCookie(this.getCookieName(), paramsUid);
-            return paramsUid;
-        }
-
-        const cookieUid = this.getUidFromCookie();
-        if (cookieUid) {
-            return cookieUid;
-        }
-
-        const uidMapKey = this.options.urlId + '|' + affiliateId;
+    public async getUid(affiliateId: string, subAffiliateId: string|null) {
+        const uidMapKey = this.options.urlId + '|' + affiliateId + '|' + subAffiliateId;
 
         if (!this.uidPromiseMap.hasOwnProperty(uidMapKey)) {
-            this.uidPromiseMap[uidMapKey] = this.requestNewUid(affiliateId);
+            this.uidPromiseMap[uidMapKey] = this.requestNewUid(affiliateId, subAffiliateId);
         }
 
-        const newUid = await this.uidPromiseMap[uidMapKey];
-        this.cookieHelper.setCookie(this.getCookieName(), newUid);
-
-        return newUid;
+        return await this.uidPromiseMap[uidMapKey];
     }
 
-    async requestNewUid(affiliateId: string) {
+    protected async requestNewUid(affiliateId: string, subAffiliateId: string|null) {
         const requestParams = {
-            affId: affiliateId,
             urlId: this.options.urlId,
         };
+
+        requestParams[AffiliateParameterEnum.AffiliateId] = affiliateId;
+        if (subAffiliateId !== null) {
+            requestParams[AffiliateParameterEnum.SubAffiliateId] = subAffiliateId;
+        }
 
         const response = await this.httpHelper.submitHttpPostRequest(
             'api/consumer-session',
@@ -50,18 +40,5 @@ export class UidService {
         );
 
         return response['data']['id'];
-    }
-
-    getUidFromCookie(): string {
-        return this.cookieHelper.getCookie(this.getCookieName());
-    }
-
-    getUidFromEventParams(): string {
-        const pageParams = this.urlHelper.getQueryParameters(document.location.href);
-        return pageParams[AffiliateParameterEnum.Uid];
-    }
-
-    getCookieName(): string {
-        return this.options.urlId + '-uid';
     }
 }
