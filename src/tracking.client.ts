@@ -10,6 +10,7 @@ import {RecaptchaService} from "./services/recaptcha.service";
 
 import environment from '../environments/environment';
 import {InteractionService} from "./services/interaction.service";
+import {Deferred} from "./objects/deferred.object";
 
 export class TrackingClient {
     protected eventParams: {[key: string]: string};
@@ -68,7 +69,7 @@ export class TrackingClient {
                 ...userDefinedParams
             };
 
-            if (environment.recaptchaSiteKey) {
+            if (environment.recaptchaV3SiteKey) {
                 requestParams[AffiliateParameterEnum.RecaptchaToken] = await this.recaptchaService.getToken("affiliate_event_type_" + eventTypeHandle);
             }
 
@@ -84,22 +85,8 @@ export class TrackingClient {
         }
     }
 
-    public async getRecaptchaV3Score(action = 'getScore'): Promise<number> {
-        let score = 0.0;
-        let token = null;
-
-        try {
-            token = await this.recaptchaService.getToken(action);
-            score = await this.recaptchaService.getScore(token);
-        } catch (e) {
-            console.error(e);
-        }
-
-        return score;
-    }
-
-    public async getRecaptchaV2Result(token): Promise<boolean> {
-        return await this.recaptchaService.getV2Result(token, this.options.urlId);
+    public async activeRecaptchaCheck(action: string, recaptchaElement: HTMLElement): Promise<void> {
+        return this.recaptchaService.activeRecaptchaCheck(action, recaptchaElement, this.options.urlId)
     }
 
     /**

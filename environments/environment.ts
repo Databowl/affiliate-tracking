@@ -1,2 +1,2 @@
-import {environment} from './environment.ENVIRONMENT';
+import {environment} from './environment.dev';
 export default environment;
