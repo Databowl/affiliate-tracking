@@ -17,5 +17,6 @@ export class OptionsObject {
         public ipv4BaseUrl: string = environment.affiliatesIpv4BaseUrl,
         public sitePath: string = '',
         public recaptchaV2SiteKey = environment.recaptchaV2SiteKey,
+        public recaptchaV3Threshold = environment.recaptchaV3Threshold,
     ) {}
 }

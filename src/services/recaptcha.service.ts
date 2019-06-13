@@ -78,7 +78,7 @@ export class RecaptchaService {
             }
         }
 
-        if (v3Result <= environment.recaptchaV3Threshold) {
+        if (v3Result <= this.options.recaptchaV3Threshold) {
             let v2Passed = false;
             let numV2Attempts = 0;
 

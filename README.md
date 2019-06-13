@@ -44,6 +44,7 @@ const defaultAffiliateId = '56df5ddc-7c02-4ddb-b9c7-aa7a6821ac33';
 const trackingOptions = new OptionsObject(
     urlId,
     defaultAffiliateId
+    // recaptchaV3SiteKey,
     // baseUrl,
     // cookieExpiryInDays,
     // cookiePrefix,
@@ -51,6 +52,8 @@ const trackingOptions = new OptionsObject(
     // documentReferer,
     // ipv4BaseUrl,
     // sitePath,
+    // recaptchaV2SiteKey
+    // recaptchaV3Threshold
 );
 
 const trackingClient = new TrackingClient(trackingOptions);
@@ -128,12 +131,12 @@ Response:
 
 ### Get the user's Databowl ID
 
-Create an event, you can find the event type IDs in your integration document.
+Using an affiliate ID, you can get a unique ID for identifying the user
 
 ```
 trackingClient.getUid(
-    eventTypeId: number, // the ID of the event type you want to create
-    userDefinedParams: object = {} // you can send custom parameters to be stored on the event
+    affiliateId: string, // your affiliate's Databowl ID
+    subAffiliateId: string|null // optional, your sub-affiliate's ID
 );
 ```
 
@@ -196,3 +199,20 @@ trackingClient.addEventParams(
     params: {[key: string]: string} // a key=>value object containing the data you want to set
 );
 ```
+
+### Active Recaptcha Check
+```
+var recaptchaElement = document.createElement('div');
+document.body.appendChild(recaptchaElement);
+
+trackingClient.activeRecaptchaCheck(
+    action: string,
+    recaptchaElement: HTMLElement
+);
+```
+
+This will retrieve a score from Recaptcha v3 that determines how likely the current user is to to be a bot. 
+If the user scores below the threshold set in OptionsObject, which has a default value, then the user will be offered 
+the chance to complete Recaptcha v2 "I am not a robot". The result of this will be stored on the user in Databowl
+ affiliates, and you can configure the campaign to reject bot events.
+
