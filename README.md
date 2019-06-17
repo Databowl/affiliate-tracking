@@ -67,12 +67,15 @@ trackingClient.registerPageView();
 |------|--------|-----------|-------
 |urlId|Yes|The id of your URL, this can be found in your Databowl integration document|None
 |defaultAffiliateId|Yes|The affiliate ID you want to assign to organic traffic|None
+|recaptchaV3SiteKey|No|A key provided by Recaptcha v3 for your site to be able to use bot detection features
 |baseUrl|No|Override the URL for the Databowl affiliates service|https://dbevt.com/
 |cookieExpiryInDays|No|The number of days before stored cookies will expire|7
 |cookiePrefix|No|Assign a prefix to your cookies, useful if you are using this library more than once on the same domain|*empty*
 |documentReferrer|No|Set to send Databowl the URI of the page that linked to your page|`document.referrer`
 |ipv4BaseUrl|No|Set to override the IPv4 capture URL|https://ipv4.dbevt.com
 |sitePath|No|The path to the root of your site (required if you have multiple sites on the same domain)|''
+|recpatchaV2SiteKey|No|A key provided by Recaptcha v2 for your site to be able to use bot detection features|
+|recaptchaV3Threshold|No| The bot detection score under which in active recaptcha, the user will be prompted to verify that they are not a bot. Defaults to 0.1
 
 You can also set these options individually:
 
