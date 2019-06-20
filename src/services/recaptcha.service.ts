@@ -10,6 +10,8 @@ export class RecaptchaService {
 
     public async getToken(action: string): Promise<string> {
         try {
+            action = action.replace('-', '');
+
             const recaptcha = await load(environment.recaptchaSiteKey);
             return await recaptcha.execute(action);
         } catch (err) {
