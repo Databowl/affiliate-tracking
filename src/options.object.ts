@@ -9,6 +9,7 @@ export class OptionsObject {
         public urlId: string,
         public defaultAffiliateId: string,
         public baseUrl: string = environment.affiliatesBaseUrl,
+        public sitePath: string = '',
         public cookieExpiryInDays: number = defaultCookieExpiryInDays,
         public cookiePrefix: string = '',
         public cookiePath: string = '/',
