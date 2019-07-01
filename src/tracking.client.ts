@@ -73,6 +73,9 @@ export class TrackingClient {
             }
 
             const uid = await this.getUid();
+            if (!uid) {
+                return;
+            }
 
             return await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
         } catch (err) {
