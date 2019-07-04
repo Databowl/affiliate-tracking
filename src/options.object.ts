@@ -9,11 +9,11 @@ export class OptionsObject {
         public urlId: string,
         public defaultAffiliateId: string,
         public baseUrl: string = environment.affiliatesBaseUrl,
-        public sitePath: string = '',
         public cookieExpiryInDays: number = defaultCookieExpiryInDays,
         public cookiePrefix: string = '',
         public cookiePath: string = '/',
         public documentReferrer: string = document.referrer,
         public ipv4BaseUrl: string = environment.affiliatesIpv4BaseUrl,
+        public sitePath: string = '',
     ) {}
 }
