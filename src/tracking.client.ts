@@ -73,6 +73,9 @@ export class TrackingClient {
             }
 
             const uid = await this.getUid();
+            if (!uid) {
+                return;
+            }
 
             return await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
         } catch (err) {
@@ -91,14 +94,23 @@ export class TrackingClient {
     public async registerPageView(userDefinedParams: object = {}): Promise<void> {
         const promises: Promise<any>[] = [];
 
-        const referrerIsSelf = document.referrer.indexOf(location.protocol + "//" + location.host) === 0;
-        if (!referrerIsSelf) {
+        if (!this.referrerIsSameSite()) {
             promises.push(this.createEvent(AffiliateEventTypeHandleEnum.Click, userDefinedParams));
         }
 
         promises.push(this.createEvent(AffiliateEventTypeHandleEnum.PageView, userDefinedParams));
 
         await Promise.all(promises);
+    }
+
+    public referrerIsSameSite(): boolean {
+        const baseUrl = location.protocol + "//" + location.host;
+        if (document.referrer.indexOf(baseUrl) !== 0) {
+            return false; // Different domain
+        }
+
+        const referrerPath = document.referrer.replace(baseUrl, '');
+        return (referrerPath.indexOf('/' + this.options.sitePath) === 0);
     }
 
     public async getUid(): Promise<string> {

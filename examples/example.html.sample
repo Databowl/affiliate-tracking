@@ -16,7 +16,9 @@
             // cookieExpiryInDays,
             // cookiePrefix,
             // cookiePath,
-            // documentReferer
+            // documentReferer,
+            // ipv4BaseUrl,
+            // sitePath,
         );
 
         var trackingClient = new DbEvtTracking.TrackingClient(trackingOptions);

@@ -16,7 +16,8 @@ var trackingOptions = new DbEvtTracking.OptionsObject(
     // cookiePrefix,
     // cookiePath,
     // documentReferer,
-    // ipv4BaseUrl
+    // ipv4BaseUrl,
+    // sitePath,
 );
 
 var trackingClient = new DbEvtTracking.TrackingClient(trackingOptions);
@@ -48,7 +49,8 @@ const trackingOptions = new OptionsObject(
     // cookiePrefix,
     // cookiePath,
     // documentReferer,
-    // ipv4BaseUrl
+    // ipv4BaseUrl,
+    // sitePath,
 );
 
 const trackingClient = new TrackingClient(trackingOptions);
@@ -67,6 +69,7 @@ trackingClient.registerPageView();
 |cookiePrefix|No|Assign a prefix to your cookies, useful if you are using this library more than once on the same domain|*empty*
 |documentReferrer|No|Set to send Databowl the URI of the page that linked to your page|`document.referrer`
 |ipv4BaseUrl|No|Set to override the IPv4 capture URL|https://ipv4.dbevt.com
+|sitePath|No|The path to the root of your site (required if you have multiple sites on the same domain)|''
 
 You can also set these options individually:
 
