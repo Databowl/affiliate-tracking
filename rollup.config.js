@@ -28,7 +28,7 @@ export default {
     plugins: [
         replace({
             ENVIRONMENT: process.env.ENVIRONMENT || 'dev',
-            'process.env.RECAPTCHA_V2_SITE_KEY': "'" + process.env.RECAPTCHA_V_SITE_KEY + "'",
+            'process.env.RECAPTCHA_V2_SITE_KEY': "'" + process.env.RECAPTCHA_V2_SITE_KEY + "'",
             'process.env.RECAPTCHA_V3_SITE_KEY': "'" + process.env.RECAPTCHA_V3_SITE_KEY + "'"
         }),
         resolve({
