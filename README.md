@@ -76,6 +76,7 @@ trackingClient.registerPageView();
 |recpatchaV2SiteKey|No|A key provided by Recaptcha v2 for your site to be able to use bot detection features|
 |recaptchaV3SiteKey|No|A key provided by Recaptcha v3 for your site to be able to use bot detection features
 |recaptchaV3Threshold|No| The bot detection score under which in active recaptcha, the user will be prompted to verify that they are not a bot. Defaults to 0.1
+|eventBlockedRedirectUrl|No| The url to redirect to when an affiliate event is blocked by filter rules|None
 
 You can also set these options individually:
 
