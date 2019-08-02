@@ -78,7 +78,20 @@ export class TrackingClient {
                 return;
             }
 
-            return await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
+            const response = await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
+
+            if (response.hasOwnProperty('redirect_url')) {
+                window.location.href = response.redirect_url;
+            }
+
+            if (response.hasOwnProperty('error') &&
+                response.error === 'filter_block' &&
+                this.options.eventBlockedRedirectUrl &&
+                location.pathname !== this.options.eventBlockedRedirectUrl) {
+                window.location.href = this.options.eventBlockedRedirectUrl;
+            }
+
+            return response;
         } catch (err) {
             console.error(err);
             return null;

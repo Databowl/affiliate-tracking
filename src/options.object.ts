@@ -5,6 +5,8 @@ import environment from "../environments/environment";
 export class OptionsObject {
     public readonly version = '@version@';
 
+    public eventBlockedRedirectUrl: string;
+
     constructor(
         public urlId: string,
         public defaultAffiliateId: string,
