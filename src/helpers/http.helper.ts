@@ -1,7 +1,10 @@
 import {OptionsObject} from "../options.object";
 
 export class HttpHelper {
+    protected userIp: string;
     protected userIpv: number;
+
+    protected userIpReceivedCallback: any = null;
 
     constructor(
         protected options: OptionsObject,
@@ -31,6 +34,12 @@ export class HttpHelper {
             xhr.onload = () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     this.userIpv = parseInt(xhr.getResponseHeader('IPV'), 10);
+                    this.userIp = xhr.getResponseHeader('X-Ip-Address');
+
+                    if (this.userIp && this.userIpReceivedCallback) {
+                        this.userIpReceivedCallback(this.userIp);
+                    }
+
                     resolve(xhr.response);
                 } else {
                     reject({
@@ -61,4 +70,7 @@ export class HttpHelper {
         return this.userIpv;
     }
 
+    public registerUserIpReceivedCallback(callback: any) {
+        this.userIpReceivedCallback = callback;
+    }
 }
