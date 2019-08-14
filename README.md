@@ -219,4 +219,12 @@ This will retrieve a score from Recaptcha v3 that determines how likely the curr
 If the user scores below the threshold set in OptionsObject, which has a default value, then the user will be offered 
 the chance to complete Recaptcha v2 "I am not a robot". The result of this will be stored on the user in Databowl
  affiliates, and you can configure the campaign to reject bot events.
+ 
+ ### User defined callback that fires when we detect user's ip address
+ The tracking client can fire a custom callback containing the user's ip address.
+ ```
+ trackingClient.registerUserIpReceivedCallback(function (ipAddress) {
+     console.log(ipAddress);
+ });
+ ```
 
