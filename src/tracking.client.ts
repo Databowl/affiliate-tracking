@@ -183,6 +183,10 @@ export class TrackingClient {
         return this.options;
     }
 
+    public registerUserIpReceivedCallback(callback: any) {
+        this.httpHelper.registerUserIpReceivedCallback(callback);
+    }
+
     initialiseEventParams() {
         const refererUrl = this.options.documentReferrer;
         const refererParams = refererUrl ? this.urlHelper.getQueryParameters(refererUrl) : {};
