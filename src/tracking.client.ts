@@ -133,13 +133,6 @@ export class TrackingClient {
 
     public async getUid(): Promise<string> {
         try {
-            const paramsUid = this.getUidFromEventParams();
-            if (paramsUid) {
-                this.cookieHelper.setCookie(this.getUidCookieName(), paramsUid);
-
-                return paramsUid;
-            }
-
             const cookieUid = this.getUidFromCookie();
             if (cookieUid) {
                 return cookieUid;
@@ -218,10 +211,6 @@ export class TrackingClient {
                 'consumer-session/increment-time/' + uid + '?duration_on_page=' + timeInMilliseconds,
             );
         });
-    }
-
-    protected getUidFromEventParams(): string {
-        return this.eventParams[AffiliateParameterEnum.Uid];
     }
 
     protected getUidFromCookie(): string {
