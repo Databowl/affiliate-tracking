@@ -213,10 +213,6 @@ export class TrackingClient {
         });
     }
 
-    protected getUidFromEventParams(): string {
-        return this.eventParams[AffiliateParameterEnum.Uid];
-    }
-
     protected getUidFromCookie(): string {
         return this.cookieHelper.getCookie(this.getUidCookieName());
     }
