@@ -133,13 +133,6 @@ export class TrackingClient {
 
     public async getUid(): Promise<string> {
         try {
-            const paramsUid = this.getUidFromEventParams();
-            if (paramsUid) {
-                this.cookieHelper.setCookie(this.getUidCookieName(), paramsUid);
-
-                return paramsUid;
-            }
-
             const cookieUid = this.getUidFromCookie();
             if (cookieUid) {
                 return cookieUid;
