@@ -33,7 +33,8 @@ export class RecaptchaService {
         const result =  await this.httpHelper.submitHttpPostRequest(
             'rcptch/v3/check',
             {
-                token
+                token: token,
+                url_id: this.options.urlId,
             },
         );
 
@@ -70,7 +71,8 @@ export class RecaptchaService {
         let v3Result = 0.0;
         for(let v3Attempts = 0; v3Attempts < 3;) {
             try {
-                v3Result = await this.getScore('formSubmit');
+                const token = await this.getToken('formSubmit');
+                v3Result = await this.getScore(token);
                 break;
             } catch (e) {
                 console.error(e);
