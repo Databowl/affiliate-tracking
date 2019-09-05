@@ -7,6 +7,8 @@ import {url} from "inspector";
 import {Deferred} from "../objects/deferred.object";
 
 export class RecaptchaService {
+    protected v2Passed: boolean = false;
+
     constructor(
         protected options: OptionsObject,
         protected httpHelper: HttpHelper,
@@ -78,14 +80,13 @@ export class RecaptchaService {
             }
         }
 
-        if (v3Result <= this.options.recaptchaV3Threshold) {
-            let v2Passed = false;
+        if (!this.v2Passed && v3Result <= this.options.recaptchaV3Threshold) {
             let numV2Attempts = 0;
 
-            while (!v2Passed && numV2Attempts < 3) {
+            while (!this.v2Passed && numV2Attempts < 3) {
                 let v2Token = await this.getV2Token(action, recaptchaElement);
 
-                v2Passed = await this.getV2Result(v2Token, urlId);
+                this.v2Passed = await this.getV2Result(v2Token, urlId);
                 numV2Attempts++;
             }
         }
