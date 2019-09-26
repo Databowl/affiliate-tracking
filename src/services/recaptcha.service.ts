@@ -35,7 +35,8 @@ export class RecaptchaService {
         const result =  await this.httpHelper.submitHttpPostRequest(
             'rcptch/v3/check',
             {
-                token
+                token: token,
+                url_id: this.options.urlId,
             },
         );
 
