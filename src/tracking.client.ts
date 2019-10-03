@@ -195,20 +195,19 @@ export class TrackingClient {
         }
     }
 
-    setupUnloadCallback() {
+    async setupUnloadCallback() {
         const unloadEventName = this.interactionService.getUnloadEventName();
 
-        window.addEventListener(unloadEventName, async () => {
+        const uid = await this.getUid();
+        if (!uid) {
+            return;
+        }
+
+        window.addEventListener(unloadEventName, (event) => {
             const timeInMilliseconds = this.interactionService.getInteractionTime();
-            const uid = await this.getUid();
 
-            if (!uid) {
-                return;
-            }
-
-            // in my tests submitting as a post request was too slow (as because of cors, two requests are made)
-            return await this.httpHelper.submitHttpOptionsRequest(
-                'consumer-session/increment-time/' + uid + '?duration_on_page=' + timeInMilliseconds,
+            this.httpHelper.syncRequest(
+                'OPTIONS', 'consumer-session/increment-time/' + uid + '?duration_on_page=' + timeInMilliseconds
             );
         });
     }

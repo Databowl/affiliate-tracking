@@ -23,6 +23,24 @@ export class HttpHelper {
         return await this.request('OPTIONS', this.options.baseUrl + url);
     }
 
+    public syncRequest(method: string, url: string, params = {}, headers = {}): boolean {
+        headers['Affiliate-Tracking-Version'] = this.options.version;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open(method, this.options.baseUrl + url, false);
+        xhr.withCredentials = true;
+
+        if (headers) {
+            Object.keys(headers).forEach(function (key) {
+                xhr.setRequestHeader(key, headers[key]);
+            })
+        }
+
+        xhr.send(JSON.stringify(params));
+
+        return (xhr.status === 200);
+    }
+
     public async request(method: string, url: string, params = {}, headers = {}): Promise<any> {
         headers['Affiliate-Tracking-Version'] = this.options.version;
 
