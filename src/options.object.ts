@@ -19,6 +19,5 @@ export class OptionsObject {
         public sitePath: string = '',
         public recaptchaV2SiteKey = environment.recaptchaV2SiteKey,
         public recaptchaV3SiteKey: string = environment.recaptchaV3SiteKey,
-        public recaptchaV3Threshold = environment.recaptchaV3Threshold,
     ) {}
 }
