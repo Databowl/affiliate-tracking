@@ -5,6 +5,7 @@ import environment from "../../environments/environment";
 import {HttpHelper} from "../helpers/http.helper";
 import {url} from "inspector";
 import {Deferred} from "../objects/deferred.object";
+import {RecaptchaV3ResultObject} from "./recaptcha-v3-result.object";
 
 export class RecaptchaService {
     protected v2Passed: boolean = false;
@@ -31,7 +32,7 @@ export class RecaptchaService {
         }
     }
 
-    public async getScore(token: string) {
+    public async getV3Result(token: string): Promise<RecaptchaV3ResultObject> {
         const result =  await this.httpHelper.submitHttpPostRequest(
             'rcptch/v3/check',
             {
@@ -40,7 +41,10 @@ export class RecaptchaService {
             },
         );
 
-        return parseFloat(result['result']);
+        return new RecaptchaV3ResultObject(
+            parseFloat(result['result']),
+            result['require_v2_recaptcha'],
+        );
     }
 
     public async getV2Token(action: string, recaptchaElement: HTMLElement): Promise<string> {
@@ -70,11 +74,12 @@ export class RecaptchaService {
     }
 
     public async activeRecaptchaCheck(action: string, recaptchaElement: HTMLElement, urlId: string) : Promise<void> {
-        let v3Result = 0.0;
+        let v3Result: RecaptchaV3ResultObject = null;
+
         for(let v3Attempts = 0; v3Attempts < 3;) {
             try {
                 const token = await this.getToken('formSubmit');
-                v3Result = await this.getScore(token);
+                v3Result = await this.getV3Result(token);
                 break;
             } catch (e) {
                 console.error(e);
@@ -82,7 +87,12 @@ export class RecaptchaService {
             }
         }
 
-        if (!this.v2Passed && v3Result <= this.options.recaptchaV3Threshold) {
+        if (this.v2Passed) {
+            return;
+        }
+
+        if (v3Result === null || v3Result.requireV2Recaptcha) {
+            let v2Passed = false;
             let numV2Attempts = 0;
 
             while (!this.v2Passed && numV2Attempts < 3) {

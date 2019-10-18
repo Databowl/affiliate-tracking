@@ -53,7 +53,6 @@ const trackingOptions = new OptionsObject(
     // ipv4BaseUrl,
     // sitePath,
     // recaptchaV2SiteKey
-    // recaptchaV3Threshold
 );
 
 const trackingClient = new TrackingClient(trackingOptions);
@@ -75,7 +74,6 @@ trackingClient.registerPageView();
 |sitePath|No|The path to the root of your site (required if you have multiple sites on the same domain)|''
 |recpatchaV2SiteKey|No|A key provided by Recaptcha v2 for your site to be able to use bot detection features|
 |recaptchaV3SiteKey|No|A key provided by Recaptcha v3 for your site to be able to use bot detection features
-|recaptchaV3Threshold|No| The bot detection score under which in active recaptcha, the user will be prompted to verify that they are not a bot. Defaults to 0.1
 |eventBlockedRedirectUrl|No| The url to redirect to when an affiliate event is blocked by filter rules|None
 
 You can also set these options individually:
@@ -215,8 +213,8 @@ trackingClient.activeRecaptchaCheck(
 );
 ```
 
-This will retrieve a score from Recaptcha v3 that determines how likely the current user is to to be a bot. 
-If the user scores below the threshold set in OptionsObject, which has a default value, then the user will be offered 
+This will retrieve a result from Recaptcha v3 that determines how likely the current user is to to be a bot. 
+If the user scores below the threshold set in Affiliates, then the user will be offered 
 the chance to complete Recaptcha v2 "I am not a robot". The result of this will be stored on the user in Databowl
  affiliates, and you can configure the campaign to reject bot events.
  
