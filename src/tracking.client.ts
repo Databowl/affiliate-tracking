@@ -58,8 +58,8 @@ export class TrackingClient {
             this.interactionService = new InteractionService();
         }
 
-        this.setupUnloadCallback();
         this.initialiseEventParams();
+        this.setupUnloadCallback();
     }
 
     public async createEvent(eventTypeHandle: AffiliateEventTypeHandleEnum, userDefinedParams: object = {}) {
