@@ -10,7 +10,6 @@ import {RecaptchaService} from "./services/recaptcha.service";
 
 import environment from '../environments/environment';
 import {InteractionService} from "./services/interaction.service";
-import {Deferred} from "./objects/deferred.object";
 
 export class TrackingClient {
     protected eventParams: {[key: string]: string};
@@ -80,15 +79,13 @@ export class TrackingClient {
 
             const response = await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
 
-            if (response.hasOwnProperty('redirect_url')) {
-                window.location.href = response.redirect_url;
-            }
-
-            if (response.hasOwnProperty('error') &&
-                response.error === 'filter_block' &&
-                this.options.eventBlockedRedirectUrl &&
-                location.pathname !== this.options.eventBlockedRedirectUrl) {
-                window.location.href = this.options.eventBlockedRedirectUrl;
+            // 'success' here just means that the event was created
+            if (response.success && response.rejected) {
+                if (response.action === 'redirect') {
+                    window.location.href = response.redirect_url;
+                } else if (this.options.eventBlockedRedirectUrl && (location.pathname !== this.options.eventBlockedRedirectUrl)) {
+                    window.location.href = this.options.eventBlockedRedirectUrl;
+                }
             }
 
             return response;
