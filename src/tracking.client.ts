@@ -69,7 +69,9 @@ export class TrackingClient {
             };
 
             if (environment.recaptchaV3SiteKey) {
+                requestParams['debug_tokenRequested'] = (new Date()).toISOString();
                 requestParams[AffiliateParameterEnum.RecaptchaToken] = await this.recaptchaService.getToken("affiliate_event_type_" + eventTypeHandle);
+                requestParams['debug_tokenReceived'] = (new Date()).toISOString();
             }
 
             const uid = await this.getUid();
@@ -77,6 +79,7 @@ export class TrackingClient {
                 return;
             }
 
+            requestParams['debug_requestSent'] = (new Date()).toISOString();
             const response = await this.eventService.createEvent(eventTypeHandle, uid, requestParams);
 
             // 'success' here just means that the event was created
