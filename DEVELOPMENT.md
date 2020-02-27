@@ -10,7 +10,7 @@ for your local environment.
 Install dependencies with:
 
 ```
-npm install
+npm ci
 ```
 
 To build the library locally run:
