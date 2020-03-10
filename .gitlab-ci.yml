@@ -12,7 +12,7 @@ stages:
 deps:
   type: deps
   script:
-    - npm install
+    - npm ci
 
 test:
   type: test
