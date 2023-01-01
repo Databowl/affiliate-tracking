@@ -40,7 +40,7 @@
     "rollup-plugin-typescript2": "^0.19.2",
     "rollup-plugin-uglify-es": "0.0.1",
     "shx": "^0.3.2",
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^9.4.2",
     "typescript": "^3.3.1"
   },
   "dependencies": {
